@@ -11,11 +11,11 @@
 
 ### 1、引入本项目维护的公网资源
 
-度量单位体系字典json文件：<https://static.esimu.cc/measures/dict.json>
+度量单位体系字典json文件：<https://static.esimu.cc/measure/dict.json>
 
-度量单位体系js脚本插件：<https://static.esimu.cc/measures/func.js>
+度量单位体系js脚本插件：<https://static.esimu.cc/measure/func.js>
 
-演示Html页面：<https://static.esimu.cc/measures/>
+演示Html页面：<https://static.esimu.cc/measure/>
 
 ### 2、保存至自有项目
 
