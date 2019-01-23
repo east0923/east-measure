@@ -32,7 +32,7 @@ json与js脚本下载地址同上，js不依赖json文件，可单独使用。
 编译：使用nodejs运行index.js文件，dict.json和func.js输出至dict/目录。
 
 ## 三、dict.json结构说明
-### 1、根节点：度量字典
+### 1、根结点：度量字典
 
 在json文件中，根节点下每一项的key为度量标签（符号记为：mkey），其值为该度量信息，各项说明如下：
 
