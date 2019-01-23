@@ -47,8 +47,7 @@ var measureFunc={
             showWord,
             sign :unit.sign,
             a    :unit.a,
-            b    :unit.b,
-            combx:unit.combx
+            b    :unit.b
           }
         }
       }
