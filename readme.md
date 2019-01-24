@@ -15,7 +15,7 @@
 
 度量单位体系js脚本插件：<https://static.esimu.cc/measure/func.js>
 
-演示Html页面：<https://static.esimu.cc/measure/>
+引入js脚本的Html页面：<https://static.esimu.cc/measure/app.html>
 
 ### 2、保存至自有项目
 
