@@ -21,7 +21,7 @@
 
 json与js脚本下载地址同上，js不依赖json文件，可单独使用。
 
-### 3、克隆git后自行编译
+### 3、使用git克隆后自行编译
 
 克隆本项目后，请勿直接修改dist/目录中的文件。
 
@@ -29,7 +29,7 @@ json与js脚本下载地址同上，js不依赖json文件，可单独使用。
 
 修改、添加js方法，可编辑funcTemp.js文件。
 
-编译：使用nodejs运行index.js文件，dict.json和func.js输出至dict/目录。
+编译：使用nodejs运行index.js文件，dict.json和func.js输出至dist/目录。
 
 ## 三、dict.json结构说明
 ### 1、根结点：度量字典
