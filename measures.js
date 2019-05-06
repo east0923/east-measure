@@ -350,14 +350,6 @@ const measures={
     units:{
       bool:{
         show:{zh:'布尔量'}
-      },
-      open0:{
-        show:{zh:'0启动'},
-        a:-1,
-        b:1
-      },
-      open1:{
-        show:{zh:'1启动'}
       }
     }
   }
