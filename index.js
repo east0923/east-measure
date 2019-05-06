@@ -95,8 +95,8 @@ const jsonStr=JSON.stringify(measures);
 
 // 写dict.json文件
 const fs=require('fs');
-fs.writeFile('dist/dict.json',jsonStr);
+fs.writeFile('dist/dict.json',jsonStr,()=>{});
 
 // 根据模板写func.js文件
 const temp=fs.readFileSync('funcTemp.js').toString('utf8').replace(/\"jsonStr\"/,jsonStr);
-fs.writeFile('dist/func.js',temp);
+fs.writeFile('dist/func.js',temp,()=>{});
