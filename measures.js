@@ -21,6 +21,10 @@ const measures={
         show:{zh:'分米'},
         a:0.1,
       },
+      um:{
+        show:{zh:'微米'},
+        a:0.000001,
+      },
     }
   },
   mass:{
@@ -82,6 +86,10 @@ const measures={
       V:{
         show:{zh:'伏'}
       },
+      mV:{
+        show:{zh:'毫伏'},
+        a:0.001
+      },
       kV:{
         show:{zh:'千伏'},
         a:1000
@@ -116,7 +124,14 @@ const measures={
           length_km: 1,
           time_h:-1
         }
-      }
+      },
+      'mm/s':{
+        show:{zh:'毫米每秒'},
+        combx:{
+          length_mm: 1,
+          time_s:-1
+        }
+      },
     },
   },
   temperature:{
@@ -210,11 +225,10 @@ const measures={
     units:{
       N:{
         show:{zh:'牛'},
-        combx:{
-          mass_kg:1,
-          length_m:1,
-          time_s:-2
-        },
+      },
+      kgf:{
+        show:{zh:'千克力'},
+        a:9.80665
       }
     }
   },
@@ -294,7 +308,39 @@ const measures={
           zh:'毫米汞柱'
         },
         a:133.3223684
-      }
+      },
+      bar:{
+        show:{
+          zh:'巴'
+        },
+        a:100000
+      },
+      mbar:{
+        show:{
+          zh:'毫巴'
+        },
+        a:100
+      },
+      'kgf/cm2':{
+        show:{
+          zh:'千克力每平方厘米'
+        },
+        sign:'kgf/cm\u00b2',
+        combx:{
+          force_kgf:1,
+          area_cm2:-1
+        }
+      },
+      'kgf/m2':{
+        show:{
+          zh:'千克力每平方米'
+        },
+        sign:'kgf/m\u00b2',
+        combx:{
+          force_kgf:1,
+          area_m2:-1
+        }
+      },
     }
   },
   density:{
@@ -356,6 +402,31 @@ const measures={
       },
     }
   },
+  flowMass:{
+    show:{zh:'质量流量'},
+    combx:{
+      mass:1,
+      time:-1
+    },
+    units: {
+      'kg/s': {
+        show: {zh: '千克每秒'}
+      },
+      'kg/h': {
+        show: {zh: '千克每小时'},
+        combx:{
+          time_h:-1
+        }
+      },
+      't/h': {
+        show: {zh: '吨每小时'},
+        combx:{
+          mass_t:1,
+          time_h:-1
+        }
+      },
+    }
+  },
   degree:{
     show:{zh:'角度'},
     units:{
@@ -407,6 +478,63 @@ const measures={
       }
     }
   },
+  multiple:{
+    show:{zh:'倍率'},
+    units:{
+      pc:{
+        show:{zh:'百分数'},
+        sign:'%',
+        a:0.01
+      },
+      pm:{
+        show:{zh:'千分数'},
+        sign:'‰',
+        a:0.001
+      },
+    }
+  },
+  resistance:{
+    show:{zh:'电阻'},
+    combx:{
+      voltage:1,
+      current:-1
+    },
+    units:{
+      Ohm:{
+        show:{zh:'欧姆'},
+        sign:'Ω'
+      },
+      kOhm:{
+        show:{zh:'千欧姆'},
+        sign:'kΩ',
+        a:1e3
+      },
+      MOhm:{
+        show:{zh:'兆欧姆'},
+        sign:'MΩ',
+        a:1e6
+      },
+    }
+  },
+  frequency:{
+    show:{zh:'频率'},
+    combx:{
+      time:-1
+    },
+    units:{
+      Hz:{
+        show:{zh:'赫兹'}
+      },
+      kHz:{
+        show:{zh:'千赫兹'},
+        a:1e3
+      },
+      MHz:{
+        show:{zh:'兆赫兹'},
+        a:1e6
+      },
+    }
+  }
 };
 
 module.exports=measures;
