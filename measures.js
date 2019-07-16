@@ -72,6 +72,22 @@ const measures={
       }
     }
   },
+  voltage:{
+    show:{zh:'电压'},
+    combx:{
+      power:1,
+      current:-1
+    },
+    units:{
+      V:{
+        show:{zh:'伏'}
+      },
+      kV:{
+        show:{zh:'千伏'},
+        a:1000
+      }
+    }
+  },
   current:{
     show:{zh:'电流'},
     units:{
@@ -83,6 +99,25 @@ const measures={
         a:0.001
       }
     }
+  },
+  speed:{
+    show:{zh:'速度'},
+    combx:{
+      length:1,
+      time:-1
+    },
+    units:{
+      'm/s':{
+        show:{zh:'米每秒'}
+      },
+      'km/h':{
+        show:{zh:'千米每小时'},
+        combx:{
+          length_km: 1,
+          time_h:-1
+        }
+      }
+    },
   },
   temperature:{
     show:{zh:'温度'},
@@ -321,19 +356,38 @@ const measures={
       },
     }
   },
-  voltage:{
-    show:{zh:'电压'},
+  degree:{
+    show:{zh:'角度'},
+    units:{
+      rad:{
+        show:{zh:'弧度'},
+      },
+      deg:{
+        show:{zh:'角度'},
+        a:Math.PI/180
+      },
+      turn:{
+        show:{zh:'转'},
+        a:Math.PI*2
+      },
+    }
+  },
+  speedDegree:{
+    show:{zh:'转速/角速度'},
     combx:{
-      power:1,
-      current:-1
+      degree:1,
+      time:-1
     },
     units:{
-      V:{
-        show:{zh:'伏'}
+      'rad/s':{
+        show:{zh:'弧度每秒'}
       },
-      kV:{
-        show:{zh:'千伏'},
-        a:1000
+      'RPM':{
+        show:{zh:'转每分钟'},
+        combx:{
+          degree_turn:1,
+          time_m:-1
+        }
       }
     }
   },
@@ -352,7 +406,7 @@ const measures={
         show:{zh:'布尔量'}
       }
     }
-  }
+  },
 };
 
 module.exports=measures;
