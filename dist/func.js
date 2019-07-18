@@ -162,5 +162,16 @@ var measureFunc={
     // 格式化、反馈
     fmt=fmt.replace(/mshow/,mshow).replace(/ushow/,ushow).replace(/usign/,usign);
     return fmt;
+  },
+
+  /**
+   * 判定两个unitkey是否量纲匹配，缺项时反馈匹配
+   */
+  isMatch(unitkey1,unitkey2){
+    // 缺项目，返回匹配
+    if(!unitkey1 || (typeof unitkey1!='string')) return true;
+    if(!unitkey2 || (typeof unitkey2!='string')) return true;
+    // 不缺，判断下划线之前的是否相等
+    return unitkey1.split('_')[0]==unitkey1.split('_')[0];
   }
 };
