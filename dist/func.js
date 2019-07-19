@@ -268,7 +268,7 @@ Iso.div=function(obj1,obj2){
 };
 
 // 如果是node环境，进行模块输出
-if(process && process.version){
+if((typeof process!=='undefined') && process.version){
   measureFunc.Iso=Iso;
   module.exports=measureFunc;
 }
