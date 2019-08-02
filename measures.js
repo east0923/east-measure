@@ -393,11 +393,25 @@ const measures={
         sign:'m\u00b3/s',
         show:{zh:'立方米每秒'}
       },
+      'm3/min':{
+        sign:'m\u00b3/min',
+        show:{zh:'立方米每分钟'},
+        combx:{
+          time_m:-1
+        },
+      },
       'm3/h':{
         sign:'m\u00b3/h',
         show:{zh:'立方米每小时'},
         combx:{
           time_h:-1
+        },
+      },
+      'm3/d':{
+        sign:'m\u00b3/d',
+        show:{zh:'立方米每天'},
+        combx:{
+          time_d:-1
         },
       },
     }
@@ -423,6 +437,13 @@ const measures={
         combx:{
           mass_t:1,
           time_h:-1
+        }
+      },
+      't/d': {
+        show: {zh: '吨每天'},
+        combx:{
+          mass_t:1,
+          time_d:-1
         }
       },
     }
