@@ -555,6 +555,34 @@ const measures={
         a:1e6
       },
     }
+  },
+  conductivity:{
+    show:{zh:'电导率'},
+    combx:{
+      resistance:-1,
+      length:-1
+    },
+    units: {
+      'S/m': {
+        show: {zh: '西门子每米'},
+      },
+      'uS/cm': {
+        show: {zh: '微西门子每厘米'},
+        a:0.0001
+      },
+      'mS/cm': {
+        show: {zh: '毫西门子每厘米'},
+        a:0.1
+      },
+    }
+  },
+  turbidity:{
+    show:{zh:'浊度'},
+    units:{
+      ntu:{
+        show:{zh:'度'}
+      }
+    }
   }
 };
 
