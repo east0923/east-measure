@@ -180,6 +180,25 @@ var measureFunc={
     // 进行详细量纲比较，两量纲相除得到的comb应该不含任何项目
     return Object.keys(Iso.div(u1,u2).comb).length===0;
   },
+
+  /* 数值、单位一起呈现 */
+  numUnitFmt:function(value,unitkeyFrom,unitKeyTo,n){
+    // 默认的n
+    if(typeof n==="undefined") n=2;
+
+    // 单位换算
+    value=measureFunc.convert(value,unitkeyFrom,unitKeyTo);
+
+    // 保留n位小数并抹去末尾的0
+    if(!Number.isFinite(value)) return value.toString();
+    var str=value.toFixed(n);
+    if(n>0) while(['0','.'].includes(str.substr(str.length-1,1))) str=str.substr(0,str.length-1);
+
+    // 根据有无呈现单位，进行不同的输出
+    var unitShow=unitKeyTo || unitkeyFrom;
+    if(unitShow) return str+' '+measureFunc.showWord(unitShow,'usign');
+    else return str;
+  },
 };
 
 /* 度量单位原型 */
@@ -268,7 +287,7 @@ Iso.div=function(obj1,obj2){
 };
 
 // 如果是node环境，进行模块输出
-if((typeof process!=='undefined')&& process.version){
+if(process && process.version){
   measureFunc.Iso=Iso;
   module.exports=measureFunc;
 }
