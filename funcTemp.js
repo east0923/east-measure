@@ -192,9 +192,11 @@ var measureFunc={
     // 保留n位小数并抹去末尾的0
     if(!Number.isFinite(value)) return value.toString();
     var str=value.toFixed(n);
-    if(n>0) while(str.substr(str.length-1,1)==='0') str=str.substr(0,str.length-1);
-    // 若最后是小数点，去除
-    if(str.substr(str.length-1,1)==='.') str=str.substr(0,str.length-1);
+    if(n>0){
+      while(str.substr(str.length-1,1)==='0') str=str.substr(0,str.length-1);
+      // 若最后是小数点，去除
+      if(str.substr(str.length-1,1)==='.') str=str.substr(0,str.length-1);
+    }
 
     // 根据有无呈现单位，进行不同的输出
     var unitShow=unitKeyTo || unitkeyFrom;
