@@ -181,27 +181,33 @@ var measureFunc={
     return Object.keys(Iso.div(u1,u2).comb).length===0;
   },
 
-  /* 数值、单位一起呈现 */
-  numUnitFmt:function(value,unitkeyFrom,unitKeyTo,n){
+  /* 数字格式化 */
+  numFmt(val,n){
+    // 异常数值，直接转字符串输出
+    if(!Number.isFinite(val)) return val.toString();
     // 默认的n
     if(typeof n==="undefined") n=2;
+    // 先使用原生的方法保留一定位数
+    var str=val.toFixed(n);
+    // 保留到整数时，直接反馈
+    if(n===0) return str;
+    // 去除末尾的0
+    while(str.substr(str.length-1,1)==='0') str=str.substr(0,str.length-1);
+    // 若最后是小数点，也去除
+    if(str.substr(str.length-1,1)==='.') str=str.substr(0,str.length-1);
+    // 反馈
+    return str;
+  },
 
+  /* 数值、单位一起呈现 */
+  numUnitFmt:function(value,unitkeyFrom,unitKeyTo,n){
     // 单位换算
     value=measureFunc.convert(value,unitkeyFrom,unitKeyTo);
 
-    // 保留n位小数并抹去末尾的0
-    if(!Number.isFinite(value)) return value.toString();
-    var str=value.toFixed(n);
-    if(n>0){
-      while(str.substr(str.length-1,1)==='0') str=str.substr(0,str.length-1);
-      // 若最后是小数点，去除
-      if(str.substr(str.length-1,1)==='.') str=str.substr(0,str.length-1);
-    }
-
     // 根据有无呈现单位，进行不同的输出
     var unitShow=unitKeyTo || unitkeyFrom;
-    if(unitShow) return str+' '+measureFunc.showWord(unitShow,'usign');
-    else return str;
+    if(unitShow) return measureFunc.numFmt(value,n)+' '+measureFunc.showWord(unitShow,'usign');
+    else return measureFunc.numFmt(value,n);
   },
 };
 
