@@ -47,7 +47,7 @@ while(unDoLast){
       if(!measure.units.hasOwnProperty(u)) continue;
       const unit=measure.units[u];
       // 如果没有sign项，默认用单位标识
-      if(!unit.sign) unit.sign=u;
+      if(typeof unit.sign!=='string') unit.sign=u;
 
       // 校准后的a，b
       let a=unit.a||1;

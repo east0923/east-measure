@@ -487,7 +487,8 @@ const measures={
     show:{zh:'酸碱度'},
     units:{
       PH:{
-        show:{zh:'PH'}
+        show:{zh:'PH'},
+        sign:'',
       }
     }
   },
@@ -495,7 +496,8 @@ const measures={
     show:{zh:'开关/启停状态'},
     units:{
       bool:{
-        show:{zh:'布尔量'}
+        show:{zh:'布尔量'},
+        sign:'',
       }
     }
   },
