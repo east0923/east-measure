@@ -92,7 +92,7 @@ var measureFunc={
    *    度量不匹配                ：抛出异常
    *
    */
-  convert(value,unitKeyFrom,unitKeyTo,level){
+  convert:function(value,unitKeyFrom,unitKeyTo,level){
     // 快捷处理：From与To单位相同，直接反馈value
     if(unitKeyFrom===unitKeyTo) return value;
 
@@ -172,7 +172,7 @@ var measureFunc={
    * @param dict2
    * @returns {boolean}
    */
-  isMatch(u1,u2){
+  isMatch:function(u1,u2){
     // 加速：缺项时，反馈不匹配
     if(!u1||!u2) return false;
     // 加速：均为字符串时，仅字面比较
@@ -182,7 +182,7 @@ var measureFunc={
   },
 
   /* 数字格式化 */
-  numFmt(val,n){
+  numFmt:function (val,n){
     // 异常数值，直接转字符串输出
     if(!Number.isFinite(val)) return val.toString();
     // 默认的n
