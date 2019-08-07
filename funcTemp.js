@@ -46,7 +46,7 @@ var measureFunc={
         if(ukey.toLowerCase().includes(word)||showWord.toLowerCase().includes(word)){
           units=units||{};
           units[ukey]={
-            showWord,
+            showWord:showWord,
             sign :unit.sign,
             a    :unit.a,
             b    :unit.b
