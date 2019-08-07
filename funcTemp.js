@@ -230,7 +230,8 @@ function Iso(obj){
       var ks2 = Object.keys(comb);
       if (ks1.length !== ks2.length) continue;
       var isok = true;
-      for (var k of ks1) {
+      for (var i=0;i<ks1.length;i++) {
+        var k=ks1[i];
         if (this.comb[k] !== comb[k]) {
           isok = false;
           break;
