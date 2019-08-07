@@ -58,7 +58,7 @@ var measureFunc={
         result[mkey]={
           showWord:measure.show[language]||measure.show.zh,
           comb:measure.comb,
-          units
+          units:units
         }
       }
     }
