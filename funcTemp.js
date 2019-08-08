@@ -43,7 +43,7 @@ var measureFunc={
         // 取出showWord
         var showWord=unit.show[language]||unit.show.zh;
         // 判定是否模糊匹配，成功则记录到units字典
-        if(ukey.toLowerCase().includes(word)||showWord.toLowerCase().includes(word)){
+        if(ukey.toLowerCase().indexOf(word)>-1||showWord.toLowerCase().indexOf(word)>-1){
           units=units||{};
           units[ukey]={
             showWord:showWord,
