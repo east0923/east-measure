@@ -9,13 +9,13 @@
 
 ## 二、资源引入说明
 
-### 1、引入本项目维护的公网资源
+### 1、引入本项目维护CDN资源
 
-度量单位体系字典json文件：<https://static.esimu.cc/measure/dict.json>
+度量单位体系字典json文件：<https://cdn.esimu.cc/measure/dict.json>
 
-度量单位体系js脚本插件：<https://static.esimu.cc/measure/func.js>
+度量单位体系js脚本插件：<https://cdn.esimu.cc/measure/func.js>
 
-引入js脚本的Html页面：<https://static.esimu.cc/measure/app.html>
+引入js脚本的Html页面：<https://cdn.esimu.cc/measure/app.html>
 
 ### 2、保存至自有项目
 
