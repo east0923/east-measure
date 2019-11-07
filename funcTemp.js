@@ -138,6 +138,10 @@ var measureFunc={
    * @returns {*} 显示字符串
    */
   showWord:function(key,fmt,language){
+    // 没有输入时，返回空字符串
+    if(!key) return '';
+
+    // 未配置模版时，使用默认模版
     fmt=fmt||'usign ushow(mshow)';
     var a=measureFunc.unitkeySplit(key);
     var m=a[0],u=a[1];

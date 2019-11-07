@@ -122,7 +122,7 @@ const measures={
         }
       },
       km2:{
-        sign:'Km\u00b2',
+        sign:'km\u00b2',
         show:{zh:'平方千米'},
         combx:{
           length_km:2
@@ -197,7 +197,7 @@ const measures={
         },
         show:{zh:'焦耳'}
       },
-      'KWh':{
+      'kWh':{
         show:{zh:'千瓦时'},
         combx:{
           power_kW:1,
@@ -269,8 +269,8 @@ const measures={
       volume:-1
     },
     units:{
-      'Kg/m3':{
-        sign:'Kg/m\u00b3',
+      'kg/m3':{
+        sign:'kg/m\u00b3',
         show:{zh:'千克每立方米'}
       },
       'g/L':{
@@ -331,7 +331,7 @@ const measures={
       V:{
         show:{zh:'伏'}
       },
-      KV:{
+      kV:{
         show:{zh:'千伏'},
         a:1000
       }
