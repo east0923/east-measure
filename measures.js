@@ -132,6 +132,13 @@ const measures={
           time_s:-1
         }
       },
+      'mm/h':{
+        show:{zh:'毫米每小时'},
+          combx:{
+            length_mm: 1,
+            time_h:-1
+        }
+      },
     },
   },
   temperature:{
