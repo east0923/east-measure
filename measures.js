@@ -21,6 +21,10 @@ const measures={
         show:{zh:'分米'},
         a:0.1,
       },
+      um:{
+        show:{zh:'微米'},
+        a:0.000001,
+      },
     }
   },
   mass:{
@@ -72,6 +76,26 @@ const measures={
       }
     }
   },
+  voltage:{
+    show:{zh:'电压'},
+    combx:{
+      power:1,
+      current:-1
+    },
+    units:{
+      V:{
+        show:{zh:'伏'}
+      },
+      mV:{
+        show:{zh:'毫伏'},
+        a:0.001
+      },
+      kV:{
+        show:{zh:'千伏'},
+        a:1000
+      }
+    }
+  },
   current:{
     show:{zh:'电流'},
     units:{
@@ -83,6 +107,32 @@ const measures={
         a:0.001
       }
     }
+  },
+  speed:{
+    show:{zh:'速度'},
+    combx:{
+      length:1,
+      time:-1
+    },
+    units:{
+      'm/s':{
+        show:{zh:'米每秒'}
+      },
+      'km/h':{
+        show:{zh:'千米每小时'},
+        combx:{
+          length_km: 1,
+          time_h:-1
+        }
+      },
+      'mm/s':{
+        show:{zh:'毫米每秒'},
+        combx:{
+          length_mm: 1,
+          time_s:-1
+        }
+      },
+    },
   },
   temperature:{
     show:{zh:'温度'},
@@ -175,11 +225,10 @@ const measures={
     units:{
       N:{
         show:{zh:'牛'},
-        combx:{
-          mass_kg:1,
-          length_m:1,
-          time_s:-2
-        },
+      },
+      kgf:{
+        show:{zh:'千克力'},
+        a:9.80665
       }
     }
   },
@@ -259,7 +308,39 @@ const measures={
           zh:'毫米汞柱'
         },
         a:133.3223684
-      }
+      },
+      bar:{
+        show:{
+          zh:'巴'
+        },
+        a:100000
+      },
+      mbar:{
+        show:{
+          zh:'毫巴'
+        },
+        a:100
+      },
+      'kgf/cm2':{
+        show:{
+          zh:'千克力每平方厘米'
+        },
+        sign:'kgf/cm\u00b2',
+        combx:{
+          force_kgf:1,
+          area_cm2:-1
+        }
+      },
+      'kgf/m2':{
+        show:{
+          zh:'千克力每平方米'
+        },
+        sign:'kgf/m\u00b2',
+        combx:{
+          force_kgf:1,
+          area_m2:-1
+        }
+      },
     }
   },
   density:{
@@ -312,6 +393,13 @@ const measures={
         sign:'m\u00b3/s',
         show:{zh:'立方米每秒'}
       },
+      'm3/min':{
+        sign:'m\u00b3/min',
+        show:{zh:'立方米每分钟'},
+        combx:{
+          time_m:-1
+        },
+      },
       'm3/h':{
         sign:'m\u00b3/h',
         show:{zh:'立方米每小时'},
@@ -319,21 +407,79 @@ const measures={
           time_h:-1
         },
       },
+      'm3/d':{
+        sign:'m\u00b3/d',
+        show:{zh:'立方米每天'},
+        combx:{
+          time_d:-1
+        },
+      },
     }
   },
-  voltage:{
-    show:{zh:'电压'},
+  flowMass:{
+    show:{zh:'质量流量'},
     combx:{
-      power:1,
-      current:-1
+      mass:1,
+      time:-1
+    },
+    units: {
+      'kg/s': {
+        show: {zh: '千克每秒'}
+      },
+      'kg/h': {
+        show: {zh: '千克每小时'},
+        combx:{
+          time_h:-1
+        }
+      },
+      't/h': {
+        show: {zh: '吨每小时'},
+        combx:{
+          mass_t:1,
+          time_h:-1
+        }
+      },
+      't/d': {
+        show: {zh: '吨每天'},
+        combx:{
+          mass_t:1,
+          time_d:-1
+        }
+      },
+    }
+  },
+  degree:{
+    show:{zh:'角度'},
+    units:{
+      rad:{
+        show:{zh:'弧度'},
+      },
+      deg:{
+        show:{zh:'角度'},
+        a:Math.PI/180
+      },
+      turn:{
+        show:{zh:'转'},
+        a:Math.PI*2
+      },
+    }
+  },
+  speedDegree:{
+    show:{zh:'转速/角速度'},
+    combx:{
+      degree:1,
+      time:-1
     },
     units:{
-      V:{
-        show:{zh:'伏'}
+      'rad/s':{
+        show:{zh:'弧度每秒'}
       },
-      kV:{
-        show:{zh:'千伏'},
-        a:1000
+      'RPM':{
+        show:{zh:'转每分钟'},
+        combx:{
+          degree_turn:1,
+          time_m:-1
+        }
       }
     }
   },
@@ -341,7 +487,8 @@ const measures={
     show:{zh:'酸碱度'},
     units:{
       PH:{
-        show:{zh:'PH'}
+        show:{zh:'PH'},
+        sign:'',
       }
     }
   },
@@ -349,7 +496,93 @@ const measures={
     show:{zh:'开关/启停状态'},
     units:{
       bool:{
-        show:{zh:'布尔量'}
+        show:{zh:'布尔量'},
+        sign:'',
+      }
+    }
+  },
+  multiple:{
+    show:{zh:'倍率'},
+    units:{
+      pc:{
+        show:{zh:'百分数'},
+        sign:'%',
+        a:0.01
+      },
+      pm:{
+        show:{zh:'千分数'},
+        sign:'‰',
+        a:0.001
+      },
+    }
+  },
+  resistance:{
+    show:{zh:'电阻'},
+    combx:{
+      voltage:1,
+      current:-1
+    },
+    units:{
+      Ohm:{
+        show:{zh:'欧姆'},
+        sign:'Ω'
+      },
+      kOhm:{
+        show:{zh:'千欧姆'},
+        sign:'kΩ',
+        a:1e3
+      },
+      MOhm:{
+        show:{zh:'兆欧姆'},
+        sign:'MΩ',
+        a:1e6
+      },
+    }
+  },
+  frequency:{
+    show:{zh:'频率'},
+    combx:{
+      time:-1
+    },
+    units:{
+      Hz:{
+        show:{zh:'赫兹'}
+      },
+      kHz:{
+        show:{zh:'千赫兹'},
+        a:1e3
+      },
+      MHz:{
+        show:{zh:'兆赫兹'},
+        a:1e6
+      },
+    }
+  },
+  conductivity:{
+    show:{zh:'电导率'},
+    combx:{
+      resistance:-1,
+      length:-1
+    },
+    units: {
+      'S/m': {
+        show: {zh: '西门子每米'},
+      },
+      'uS/cm': {
+        show: {zh: '微西门子每厘米'},
+        a:0.0001
+      },
+      'mS/cm': {
+        show: {zh: '毫西门子每厘米'},
+        a:0.1
+      },
+    }
+  },
+  turbidity:{
+    show:{zh:'浊度'},
+    units:{
+      ntu:{
+        show:{zh:'度'}
       }
     }
   }

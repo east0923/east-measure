@@ -9,13 +9,13 @@
 
 ## 二、资源引入说明
 
-### 1、引入本项目维护的公网资源
+### 1、引入本项目维护CDN资源
 
-度量单位体系字典json文件：<https://static.esimu.cc/measure/dict.json>
+度量单位体系字典json文件：<https://cdn.esimu.cc/measure/dict.json>
 
-度量单位体系js脚本插件：<https://static.esimu.cc/measure/func.js>
+度量单位体系js脚本插件：<https://cdn.esimu.cc/measure/func.js>
 
-引入js脚本的Html页面：<https://static.esimu.cc/measure/app.html>
+引入js脚本的Html页面：<https://cdn.esimu.cc/measure/app.html>
 
 ### 2、保存至自有项目
 
@@ -78,7 +78,7 @@ unitkey用于标识一个数据具体的度量单位，构成规则为：\[mkey]
 由单位1换算到单位2，中间需经过国际单位数值：单位1数值 -> 国际单位数值 -> 单位2数值。
 
 ```
-注意：
+说明：
 1、不同度量下的单位间，进行单位换算无意义，请不要这样做；
 2、计算过程中不必考虑单位1、2是否本身就是国际单位，因为国际单位的系数对数值计算结果无影响。
 

@@ -1,6 +1,8 @@
+/* 方法字典 */
 var measureFunc={
   // 度量单位字典，会被替换为dict.json内容
   _dict:"jsonStr",
+
   /**
    * 将unitkey分解为度量和单位，可兼容空输入，不检测字典中是否存在
    *
@@ -41,10 +43,10 @@ var measureFunc={
         // 取出showWord
         var showWord=unit.show[language]||unit.show.zh;
         // 判定是否模糊匹配，成功则记录到units字典
-        if(ukey.toLowerCase().includes(word)||showWord.toLowerCase().includes(word)){
+        if(ukey.toLowerCase().indexOf(word)>-1||showWord.toLowerCase().indexOf(word)>-1){
           units=units||{};
           units[ukey]={
-            showWord,
+            showWord:showWord,
             sign :unit.sign,
             a    :unit.a,
             b    :unit.b
@@ -56,7 +58,7 @@ var measureFunc={
         result[mkey]={
           showWord:measure.show[language]||measure.show.zh,
           comb:measure.comb,
-          units
+          units:units
         }
       }
     }
@@ -90,7 +92,7 @@ var measureFunc={
    *    度量不匹配                ：抛出异常
    *
    */
-  convert(value,unitKeyFrom,unitKeyTo,level){
+  convert:function(value,unitKeyFrom,unitKeyTo,level){
     // 快捷处理：From与To单位相同，直接反馈value
     if(unitKeyFrom===unitKeyTo) return value;
 
@@ -162,5 +164,141 @@ var measureFunc={
     // 格式化、反馈
     fmt=fmt.replace(/mshow/,mshow).replace(/ushow/,ushow).replace(/usign/,usign);
     return fmt;
-  }
+  },
+
+  /**
+   * 判定两组unitkey是否量纲匹配，缺项时反馈匹配
+   * @param dict1
+   * @param dict2
+   * @returns {boolean}
+   */
+  isMatch:function(u1,u2){
+    // 加速：缺项时，反馈不匹配
+    if(!u1||!u2) return false;
+    // 加速：均为字符串时，仅字面比较
+    if((typeof u1==='string')&&(typeof u2==='string')) return u1.split('_')[0]===u2.split('_')[0];
+    // 进行详细量纲比较，两量纲相除得到的comb应该不含任何项目
+    return Object.keys(Iso.div(u1,u2).comb).length===0;
+  },
+
+  /* 数字格式化 */
+  numFmt:function (val,n){
+    // 异常数值，直接转字符串输出
+    if(!Number.isFinite(val)) return val.toString();
+    // 默认的n
+    if(typeof n==="undefined") n=2;
+    // 先使用原生的方法保留一定位数
+    var str=val.toFixed(n);
+    // 保留到整数时，直接反馈
+    if(n===0) return str;
+    // 去除末尾的0
+    while(str.substr(str.length-1,1)==='0') str=str.substr(0,str.length-1);
+    // 若最后是小数点，也去除
+    if(str.substr(str.length-1,1)==='.') str=str.substr(0,str.length-1);
+    // 反馈
+    return str;
+  },
+
+  /* 数值、单位一起呈现 */
+  numUnitFmt:function(value,unitkeyFrom,unitKeyTo,n){
+    // 单位换算
+    value=measureFunc.convert(value,unitkeyFrom,unitKeyTo);
+
+    // 根据有无呈现单位，进行不同的输出
+    var unitShow=unitKeyTo || unitkeyFrom;
+    if(unitShow) return measureFunc.numFmt(value,n)+' '+measureFunc.showWord(unitShow,'usign');
+    else return measureFunc.numFmt(value,n);
+  },
 };
+
+/* 度量单位原型 */
+function Iso(obj){
+  // 定义实例方法：整理
+  this._clean=function(){
+    for(var k in this.comb){
+      // 四舍五入，删除为0的
+      this.comb[k]=Math.round(this.comb[k]);
+      if(!this.comb[k]) delete this.comb[k];
+    }
+  };
+
+  // 定义实例方法转换方法
+  this.toMeasure=function(){
+    for(var m in measureFunc._dict) {
+      var comb = measureFunc._dict[m].comb;
+      var ks1 = Object.keys(this.comb);
+      var ks2 = Object.keys(comb);
+      if (ks1.length !== ks2.length) continue;
+      var isok = true;
+      for (var i=0;i<ks1.length;i++) {
+        var k=ks1[i];
+        if (this.comb[k] !== comb[k]) {
+          isok = false;
+          break;
+        }
+      }
+      if (isok) return m;
+    }
+    return "";
+  };
+
+  /* ==== 以下为构建过程 ==== */
+  // 最终量纲对象
+  this.comb={};
+  // 传入为空，构建完毕，可结束
+  if(!obj) return;
+
+  // 如果是字符串，构造为字典形式
+  if(typeof obj==='string'){var m={};m[obj]=1;obj=m}
+  // 遍历
+  for(var k in obj) {
+    // 取出该度量的代码，并取comb记为c
+    var m=k.split('_')[0];
+    var c=measureFunc._dict[m].comb;
+    // 遍历c，将其合并到最终的iso
+    for(var i in c) this.comb[i]=(this.comb[i]||0) + c[i]*obj[k];
+  }
+
+  this._clean();
+}
+Iso.mul=function(){
+  // 构建输出结果
+  var res=new Iso();
+  // 取参数数组，兼容ES5
+  var objs=Array.from(arguments);
+  // 遍历参数
+  objs.forEach(function (i) {
+    // 若参数不是Iso对象，进行构建
+    if((typeof i==='string')|| !i.comb) i=new Iso(i);
+    // 进行量纲乘法运算
+    for(var k in i.comb){
+      res.comb[k]=(res.comb[k]||0) + i.comb[k];
+    }
+  });
+  // 清理后反馈
+  res._clean();
+  return res
+};
+Iso.pow=function(obj,num){
+  // 构建输出结果
+  var res=new Iso();
+  // 若参数不是Iso对象，进行构建
+  if((typeof obj==='string')|| !obj.comb) obj=new Iso(obj);
+  // 遍历所有comb，均乘以num
+  for(var k in obj.comb){
+    res.comb[k]=obj.comb[k]*num;
+  }
+
+  // 清理后反馈
+  res._clean();
+  return res
+};
+Iso.div=function(obj1,obj2){
+  return Iso.mul(obj1,Iso.pow(obj2,-1))
+};
+
+// 如果是node环境，进行模块输出
+if((typeof process!=='undefined') && process.version){
+  measureFunc.Iso=Iso;
+  module.exports=measureFunc;
+}

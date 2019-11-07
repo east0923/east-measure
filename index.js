@@ -47,7 +47,7 @@ while(unDoLast){
       if(!measure.units.hasOwnProperty(u)) continue;
       const unit=measure.units[u];
       // 如果没有sign项，默认用单位标识
-      if(!unit.sign) unit.sign=u;
+      if(typeof unit.sign!=='string') unit.sign=u;
 
       // 校准后的a，b
       let a=unit.a||1;
@@ -95,8 +95,8 @@ const jsonStr=JSON.stringify(measures);
 
 // 写dict.json文件
 const fs=require('fs');
-fs.writeFile('dist/dict.json',jsonStr);
+fs.writeFile('dist/dict.json',jsonStr,()=>{});
 
 // 根据模板写func.js文件
 const temp=fs.readFileSync('funcTemp.js').toString('utf8').replace(/\"jsonStr\"/,jsonStr);
-fs.writeFile('dist/func.js',temp);
+fs.writeFile('dist/func.js',temp,()=>{});
