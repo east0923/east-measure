@@ -511,6 +511,11 @@ const measures={
   multiple:{
     show:{zh:'倍率'},
     units:{
+      p:{
+          show:{zh:'无量纲'},
+          sign:'--',
+          a:1
+      },
       pc:{
         show:{zh:'百分数'},
         sign:'%',
